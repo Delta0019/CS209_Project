@@ -23,18 +23,18 @@ public class DemoController {
 
   @PostConstruct
   public void readFiles(){
-        try (BufferedReader br = new BufferedReader(new FileReader("java_questions.json"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                JSONTokener tokener = new JSONTokener(line);
-                JSONObject jsonObject = new JSONObject(tokener);
-                jsonList.add(jsonObject);
-            }
-        } catch (IOException e) {
+    try (BufferedReader br = new BufferedReader(new FileReader("java_questions.json"))) {
+      String line;
+      while ((line = br.readLine()) != null) {
+        JSONTokener tokener = new JSONTokener(line);
+        JSONObject jsonObject = new JSONObject(tokener);
+         jsonList.add(jsonObject);
+       }
+      } catch (IOException e) {
             e.printStackTrace();
-        }
-
     }
+
+  }
     /**
      * This method is called when the user requests the root URL ("/") or "/demo".
      * In this demo, you can visit localhost:9090 or localhost:9090/demo to see the result.
