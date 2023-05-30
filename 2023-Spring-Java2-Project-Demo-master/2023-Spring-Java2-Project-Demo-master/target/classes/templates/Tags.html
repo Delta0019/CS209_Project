@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tags</title>
+    <script src='https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2/dist/echarts-wordcloud.min.js"></script>
+
+
+</head>
+<body>
+    <h1>Part3</h1>
+    <h3>The tags with a lot of upvote: -1</h3>
+    <h3>The tags with a lot of views: -1</h3>
+<div style="width: 100%;height: 60vh;display: flex">
+    <div style="width: 50%;height: 100%">
+        <div id="wordcloud" style="height: 100%;width: 100%"></div>
+    </div>
+    <div style="width: 50%;height: 100%">
+        <div id="barchart" style="height: 100%;width: 100%"></div>
+    </div>
+    <div style="width: 50%;height: 100%">
+        <div id="barchart2" style="height: 100%;width: 100%"></div>
+    </div>
+</div>
+</body>
+<script th:inline="javascript">
+    // 获取Map数据
+    var dataMap = /*[[${dataMap}]]*/ {};
+    var dataMap2 = /*[[${dataMap2}]]*/ {};
+    var dataMap3 = /*[[${dataMap3}]]*/ {};
+
+    // 将Map转换为数组
+    var dataArray = [];
+    for (var key in dataMap) {
+        if (dataMap.hasOwnProperty(key)) {
+            var value = dataMap[key];
+            dataArray.push({ name: key, value: value });
+        }
+    }
+
+    // 初始化ECharts实例
+    var myChart = echarts.init(document.getElementById('wordcloud'));
+
+    // 配置词汇云图参数
+    var option = {
+        title: {
+            text: 'tags frequently appeared together with java', // 标题文本
+            left: 'center' // 标题位置
+        },
+
+
+        series: [{
+            type: 'wordCloud',
+            shape: 'circle',
+            textStyle: {
+                fontFamily: 'Arial',
+                fontWeight: 'bold',
+                color: function () {
+                    return 'rgb(' + [
+                        Math.round(Math.random() * 255),
+                        Math.round(Math.random() * 255),
+                        Math.round(Math.random() * 255)
+                    ].join(',') + ')';
+                }
+            },
+            data: dataArray
+        }]
+    };
+
+    // 添加tooltip配置
+    option.tooltip = {
+        formatter: function (params) {
+            var name = params.name;
+            var value = dataMap[name];
+            return '词汇: ' + name + '<br>数量: ' + value;
+        }
+    };
+
+    // 绘制词汇云图
+    myChart.setOption(option)
+
+    var barChart1 = echarts.init(document.getElementById('barchart'));
+    // 配置柱状图参数
+    var barChartOption1 = {
+        title: {
+            text: 'tag combinations with most upvotes', // 标题文本
+            left: 'center' // 标题位置
+        },
+
+
+        xAxis: {
+            type: 'category',
+            data: Object.keys(dataMap2),
+            axisLabel: {
+                show: true, // 显示 x 轴标签
+                interval: 0, // 强制显示所有标签
+                rotate: 20
+
+            }
+
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            type: 'bar',
+            data: Object.values(dataMap2)
+        }]
+    };
+    barChartOption1.tooltip = {
+        formatter: function (params) {
+            var name = params.name;
+            var value = params.value;
+            return 'tags: ' + name + '<br>up votes: ' + value;
+        }
+    };
+
+    // 绘制柱状图
+    barChart1.setOption(barChartOption1);
+
+    var barChart2 = echarts.init(document.getElementById('barchart2'));
+    // 配置柱状图参数
+    var barChartOption2 = {
+        title: {
+            text: 'tag combinations with most views', // 标题文本
+            left: 'center' // 标题位置
+        },
+
+
+        xAxis: {
+            type: 'category',
+            data: Object.keys(dataMap3),
+            axisLabel: {
+                show: true, // 显示 x 轴标签
+                interval: 0, // 强制显示所有标签
+                rotate: 20
+
+            }
+
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            type: 'bar',
+            data: Object.values(dataMap3)
+        }]
+    };
+    barChartOption2.tooltip = {
+        formatter: function (params) {
+            var name = params.name;
+            var value = params.value;
+            return 'tags: ' + name + '<br>views: ' + value;
+        }
+    };
+
+    // 绘制柱状图
+    barChart2.setOption(barChartOption2);
+
+
+
+</script>
+</html>

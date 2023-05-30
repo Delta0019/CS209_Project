@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accepted_Answer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Part 2</h1>
+    <h3>The question with accepted answer: <span th:text="${count}"></span>%</h3>
+    <h3>Non-accepted answer with more upvote: <span th:text="${count2}"></span>%</h3>
+    <h3>Distribution of time: </h3>
+    <div>
+        <canvas id="barChart"></canvas>
+    </div>
+    <script th:inline="javascript">
+        var dataMap = /*[[${dataMap}]]*/ {};
+        var data = Object.entries(dataMap).map(([key, value]) => ({ x: key, y: value }));
+
+            // 获取 canvas 元素
+        const canvas = document.getElementById('barChart');
+
+            // 创建柱状图
+        new Chart(canvas, {
+            type: 'bar',
+            data: {
+                labels: data.map(item => item.x),
+                datasets: [{
+                    label: 'Distribution',
+                    data: data,
+                    backgroundColor: 'blue',
+                    borderColor: 'blue',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

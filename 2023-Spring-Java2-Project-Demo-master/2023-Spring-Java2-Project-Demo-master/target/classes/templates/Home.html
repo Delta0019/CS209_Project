@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home_page</title>
+    <style>
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            grid-gap: 10px;
+            grid-column-gap: 20px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .my-button {
+            background-color: #4CAF50; /* 设置背景颜色 */
+            border: none; /* 去除边框 */
+            color: white; /* 设置文字颜色 */
+            padding: 30px 64px; /* 设置内边距 */
+            text-align: center; /* 文字居中 */
+            text-decoration: none; /* 去除文本装饰 */
+            display: inline-block; /* 行内块元素 */
+            font-size: 16px; /* 文字大小 */
+            cursor: pointer; /* 设置鼠标悬停样式 */
+            width: 200px;
+            height: 100px;
+        }
+        body{
+            background-image: url("wallhaven-kx82d6.png");
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Home Page!</h1>
+    <h4>Click the Button and View</h4>
+    <div class="button-container">
+        <a th:href="@{/Part1}"><button class="my-button">Answer</button></a>
+        <a th:href="@{/Part2}"><button class="my-button">Accepted Answer</button></a>
+        <a th:href="@{/Part3}"><button class="my-button">Tags</button></a>
+        <a th:href="@{/Part4}"><button class="my-button">Users</button></a>
+    </div>
+    <div>
+        <a th:href="@{/File}">More Info</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<h1>Part 4</h1>
+
+<div>
+    <canvas id="lineChart1"></canvas>
+    <canvas id="lineChart2"></canvas>
+    <canvas id="lineChart3"></canvas>
+    <canvas id="barChart1"></canvas>
+    <canvas id="barChart2"></canvas>
+</div>
+
+<script th:inline= "javascript">
+    // 获取canvas元素的上下文
+    const ctx1 = document.getElementById('lineChart1');
+    const ctx2 = document.getElementById('lineChart2');
+    const ctx3 = document.getElementById('lineChart3');
+    const ctx4 = document.getElementById('barChart1');
+    const ctx5 = document.getElementById('barChart2');
+
+    // 数据引用
+    var dataMap = /*[[${dataMap}]]*/ {};
+    var dataMap1 = /*[[${dataMap1}]]*/ {};
+    var dataMap2 = /*[[${dataMap2}]]*/ {};
+    var dataMap3 = /*[[${dataMap3}]]*/ {};
+    var dataMap4 = /*[[${dataMap4}]]*/ {};
+
+
+    // 将Map转换为Array，每个元素都包含键和值
+    var dataArray = Object.entries(dataMap).map(([key, value]) => ({ x: key, y: value }));
+    var dataArray1 = Object.entries(dataMap1).map(([key, value]) => ({ x: key, y: value }));
+    var dataArray2 = Object.entries(dataMap2).map(([key, value]) => ({ x: key, y: value }));
+    var dataArray3 = Object.entries(dataMap3).map(([key, value]) => ({ x: key, y: value }));
+    var dataArray4 = Object.entries(dataMap4).map(([key, value]) => ({ x: key, y: value }));
+
+    // 按照值从大到小排序
+    dataArray.sort((a, b) => b.y - a.y);
+    dataArray1.sort((a, b) => b.y - a.y);
+    dataArray2.sort((a, b) => b.y - a.y);
+    dataArray3.sort((a, b) => b.y - a.y);
+    dataArray4.sort((a, b) => b.y - a.y);
+
+    // 创建第一个线图
+    // 创建第一个线图
+    new Chart(ctx1, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'Distribution',
+                data: dataArray,
+                borderColor: 'blue',
+                fill: false,
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Users in thread discussion'
+                }
+            },
+            scales: {
+                x:{
+                    display: true,
+                    title:{
+                        display:true,
+                        text:'Thread'
+                    }
+                },
+                y:{
+                    display:true,
+                    title:{
+                        display:true,
+                        text:'Count'
+                    }
+                }
+            }
+        },
+        responsive: true
+    });
+
+    // 创建第二个线图
+    new Chart(ctx2, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'Distribution',
+                data: dataArray1,
+                borderColor: 'blue',
+                fill: false,
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Answerers in thread discussion'
+                }
+            },
+            scales: {
+                x:{
+                    display: true,
+                    title:{
+                        display:true,
+                        text:'Thread'
+                    }
+                },
+                y:{
+                    display:true,
+                    title:{
+                        display:true,
+                        text:'Count'
+                    }
+                }
+            }
+        },
+        responsive: true
+    });
+
+    // 创建第三个线图
+    new Chart(ctx3, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'Distribution',
+                data: dataArray2,
+                borderColor: 'blue',
+                fill: false,
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Commenters in thread discussion'
+                }
+            },
+            scales: {
+                x:{
+                    display: true,
+                    title:{
+                        display:true,
+                        text:'Thread'
+                    }
+                },
+                y:{
+                    display:true,
+                    title:{
+                        display:true,
+                        text:'Count'
+                    }
+                }
+            }
+        },
+        responsive: true
+    });
+
+    new Chart(ctx4, {
+        type: 'bar',
+        data: {
+            labels: dataArray3.map(item => item.x),
+            datasets: [{
+                label: 'Distribution',
+                data: dataArray3,
+                backgroundColor: 'blue',
+                borderColor: 'blue',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Most active answerers'
+                }
+            },
+            scales: {
+                x:{
+                    display: true,
+                    title:{
+                        display:true,
+                        text:'User_id'
+                    }
+                },
+                y:{
+                    display:true,
+                    title:{
+                        display:true,
+                        text:'Answer_count'
+                    }
+                }
+            }
+        },
+        responsive: true
+    });
+
+    new Chart(ctx5, {
+        type: 'bar',
+        data: {
+            labels: dataArray4.map(item => item.x),
+            datasets: [{
+                label: 'Distribution',
+                data: dataArray4,
+                backgroundColor: 'blue',
+                borderColor: 'blue',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Most active commenters'
+                }
+            },
+            scales: {
+                x:{
+                    display: true,
+                    title:{
+                        display:true,
+                        text:'User_id'
+                    }
+                },
+                y:{
+                    display:true,
+                    title:{
+                        display:true,
+                        text:'Comment count'
+                    }
+                }
+            }
+        },
+        responsive: true
+    });
+
+</script>
+</body>
+</html>
