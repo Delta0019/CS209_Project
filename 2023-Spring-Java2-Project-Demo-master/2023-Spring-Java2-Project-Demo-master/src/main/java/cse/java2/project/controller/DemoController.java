@@ -19,11 +19,10 @@ import javax.annotation.PostConstruct;
 
 @Controller
 public class DemoController {
+  public List<JSONObject> jsonList = new ArrayList<>();
 
-    public List<JSONObject> jsonList = new ArrayList<>();
-
-    @PostConstruct
-    public void readFiles(){
+  @PostConstruct
+  public void readFiles(){
         try (BufferedReader br = new BufferedReader(new FileReader("java_questions.json"))) {
             String line;
             while ((line = br.readLine()) != null) {
